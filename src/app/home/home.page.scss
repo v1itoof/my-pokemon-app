@@ -17,7 +17,7 @@
   font-size: 16px;
   line-height: 22px;
 
-  color: #8c8c8c;
+  color: #fff;
 
   margin: 0;
 }
@@ -25,3 +25,160 @@
 #container a {
   text-decoration: none;
 }
+
+
+ion-card {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  color: #fff;
+
+  .pokemon-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+
+  ion-card-content {
+    width: 100%;
+  }
+
+  .pokemon-id {
+    text-align: left;
+    width: 100%;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+  }
+
+  .pokemon-name {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+
+  .pokemon-types {
+    display: flex;
+    font-size: 0.9em;
+    color: gray;
+  }
+
+  .type-box{
+    margin-right: 10px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+
+  .grass {
+    background-color: #78c850;
+  }
+
+  .fire {
+    background-color: #f08030;
+  }
+
+  .water {
+    background-color: #6890f0;
+  }
+
+  .bug {
+    background-color: #a8b820;
+  }
+
+  .normal {
+    background-color: #a8a878;
+  }
+  .flying{
+    background: rgb(130,130,130);
+    background: linear-gradient(90deg, rgba(130,130,130,1) 0%, rgba(107,107,107,1) 35%, rgba(0,155,255,1) 100%);
+  }
+  .fighting{
+    background-color: #ff0459;
+  }
+  .poison{
+    background-color: #b004ff;
+  }
+  .electric{
+    background-color: #ffcd00;
+  }
+  .ground{
+    background-color: #7e6d27;
+  }
+  .rock{
+    background-color: #6b6b6b;
+  }
+  .psychic{
+    background-color: #ef00ff;
+  }
+  .ice{
+    background-color: #00a8ff;
+  }
+  .ghost{
+    background-color: #5101ab;
+  }
+  .steel{
+    background: rgb(130,130,130);
+    background: linear-gradient(90deg, rgba(130,130,130,1) 0%, rgba(180,180,180,1) 35%, rgba(0,0,0,1) 100%);
+  }
+  .dragon{
+    background: rgb(255,25,0);
+    background: linear-gradient(90deg, rgba(255,25,0,1) 0%, rgba(255,25,0,1) 35%, rgba(112,185,226,1) 65%);
+  }
+  .dark{
+    background-color: #140041;
+  }
+  .fairy{
+    background: rgb(109,210,255);
+    background: linear-gradient(90deg, rgba(109,210,255,1) 0%, rgba(109,210,255,1) 35%, rgba(255,181,240,1) 62%);
+  }
+
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-left: 1px solid #222;
+  cursor: pointer;
+}
+
+.pagination button:first-child {
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination button:last-child {
+  background-color: #007bff;
+  color: #fff;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination button.start {
+  margin-right: auto;
+}
+
+.pagination button.end {
+  margin-left: auto;
+}
+

@@ -1,13 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>details</ion-title>
+    <ion-title>Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div *ngIf="pokemonDetails">
+    <h2>{{ pokemonDetails.name }}</h2>
+    <img [src]="pokemonDetails.sprites.front_default" alt="Pokemon Image">
+    <p>Abilities: {{ abilities.join(', ') }}</p>
+    <p>Weight: {{ weight }}</p>
+    <p>Height: {{ height }}</p>
+    <div>
+      <h3>Stats:</h3>
+      <ul>
+        <li *ngFor="let stat of stats">
+          <strong>{{ stat.name }}:</strong> {{ stat.base_stat }}
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>Types:</h3>
+      <p>{{ types.join(', ') }}</p>
+    </div>
+    <div>
+      <h3>Moves:</h3>
+      <ul>
+        <li *ngFor="let move of moves">
+          {{ move }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </ion-content>
+
