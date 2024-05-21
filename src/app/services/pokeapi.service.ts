@@ -49,6 +49,20 @@ export class PokeapiService {
     return this.http.get(`${this.baseUrl}/pokemon/${id}`);
   }
 
-  
+  getAbilityByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/ability/${name}`);
+  }
+
+  getMoveByName(name: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/move/${name}`);
+  }
+
+  getEvolutionChainByUrl(url: string): Observable<any> {
+    return this.http.get(url);
+  }
+
+  getPokemonEvolutions(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/evolution-chain/${id}`);
+  }
 
 }

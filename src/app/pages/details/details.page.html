@@ -5,32 +5,152 @@
 </ion-header>
 
 <ion-content>
-  <div *ngIf="pokemonDetails">
-    <h2>{{ pokemonDetails.name }}</h2>
-    <img [src]="pokemonDetails.sprites.front_default" alt="Pokemon Image">
-    <p>Abilities: {{ abilities.join(', ') }}</p>
-    <p>Weight: {{ weight }}</p>
-    <p>Height: {{ height }}</p>
+  <div *ngIf="pokemonDetails" class="box-container">
+
     <div>
-      <h3>Stats:</h3>
+      <h2>Evolutions</h2>
       <ul>
-        <li *ngFor="let stat of stats">
-          <strong>{{ stat.name }}:</strong> {{ stat.base_stat }}
+        <li *ngFor="let evolution of evolutions">
+          {{ evolution.pokemonName }} - Level: {{ evolution.level }} ({{ evolution.method }})
         </li>
       </ul>
     </div>
-    <div>
-      <h3>Types:</h3>
-      <p>{{ types.join(', ') }}</p>
-    </div>
-    <div>
-      <h3>Moves:</h3>
-      <ul>
-        <li *ngFor="let move of moves">
-          {{ move }}
-        </li>
-      </ul>
-    </div>
+
+    <ion-card class="details-card">
+      <ion-card-content>
+        <div class="pokemon-details">
+          <div class="image-box-details">
+            <img [src]="pokemonDetails.sprites.front_default" alt="Pokemon Image">
+          </div>
+          <div class="desc-details">
+            <ion-card-title>{{ pokemonDetails.name | capitalize }}</ion-card-title>
+            <div>
+              <p><strong>Weight:</strong> {{ weight }}</p>
+              <p><strong>Height:</strong> {{ height }}</p>
+            </div>
+
+            <div class="types-details">
+              <div class="title-types-details">
+                <ion-card-title>Types</ion-card-title>
+              </div>
+              <div class="pokemon-types">
+                <span *ngFor="let type of types" class="type-box" [ngClass]="type">{{ type | capitalize }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Abilities</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="desc-abilities">
+          <div class="desc-abilities-inside">
+            <div class="desc-abilities-inside-box" *ngFor="let ability of abilities">
+              <div>
+                <span>{{ ability.name }} <span *ngIf="ability.isHidden">(Hidden Ability)</span></span>
+
+              </div>
+              <p>{{ ability.description }}</p>
+            </div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Stats</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ul class="list-stats">
+          <li class="list-stats-li" *ngFor="let stat of stats">
+            <div class="stats-desc">
+              <span><strong>{{ stat.name | capitalize }}</strong></span>
+              <span>{{ stat.base_stat }}</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar"
+                [style.width.%]="stat.base_stat"
+                [ngClass]="{'medium': stat.base_stat < 90, 'low': stat.base_stat < 50}">
+                <span></span>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Moves Learned by Level up</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="moves-pokemon">
+          <table>
+            <tr>
+              <th>Level</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Power</th>
+              <th>Accuracy</th>
+            </tr>
+            <ng-container *ngFor="let move of moves">
+              <ng-container *ngIf="move.learnedBy === 'Level'">
+                <tr>
+                  <td>{{ move.learnedAt }}</td>
+                  <td>{{ move.name | capitalize }}</td>
+                  <td>
+                    <div class="pokemon-types">
+                      <span class="type-box" [ngClass]="move.type">{{  move.type | capitalize }}</span>
+                    </div>
+                  </td>
+                  <td>{{ move.power }}</td>
+                  <td>{{ move.accuracy }}</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </table>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Moves Learned by TM</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="moves-pokemon">
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Power</th>
+              <th>Accuracy</th>
+            </tr>
+            <ng-container *ngFor="let move of moves">
+              <ng-container *ngIf="move.learnedBy === 'TM'">
+                <tr>
+                  <td>{{ move.name | capitalize }}</td>
+                  <td>
+                    <div class="pokemon-types">
+                      <span class="type-box" [ngClass]="move.type">{{  move.type | capitalize }}</span>
+                    </div>
+                  </td>
+                  <td>{{ move.power }}</td>
+                  <td>{{ move.accuracy }}</td>
+              </ng-container>
+            </ng-container>
+          </table>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+
+
   </div>
 </ion-content>
-

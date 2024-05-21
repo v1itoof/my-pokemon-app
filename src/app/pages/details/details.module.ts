@@ -7,15 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { DetailsPageRoutingModule } from './details-routing.module';
 
 import { DetailsPage } from './details.page';
-import { CapitalizePipe } from 'src/app/capitalize.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailsPageRoutingModule
+    DetailsPageRoutingModule,
+    SharedModule
   ],
-  declarations: [DetailsPage, CapitalizePipe]
+  declarations: [DetailsPage]
 })
 export class DetailsPageModule {}
