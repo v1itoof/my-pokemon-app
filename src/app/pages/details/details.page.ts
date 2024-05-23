@@ -96,22 +96,38 @@ export class DetailsPage implements OnInit {
     });
   }
 
+
   parseEvolutionChain(chain: any) {
-    const evolveDetails = chain.evolution_details;
-    const evolvesTo = chain.evolves_to;
+    const processChain = (node: any, evolutionArray: any[]) => {
+      const evolvesTo = node.evolves_to;
+      const evolutionDetails = node.evolution_details[0];
 
-    if (evolveDetails.length > 0) {
-      evolveDetails.forEach((detail: any) => {
-        const method = detail.trigger.name;
-        const level = detail.min_level || 'Not specified';
-        const pokemonName = chain.species.name;
-        this.evolutions.push({ pokemonName, method, level });
+      this.pokeapiService.getPokemonDetailsByUrl(node.species.url).subscribe((speciesDetails: any) => {
+        this.pokeapiService.getPokemonDetailsById(speciesDetails.id).subscribe((pokemonDetails: any) => {
+          const evolutionData = {
+            id: node.species.id,
+            name: node.species.name,
+            min_level: evolutionDetails ? evolutionDetails.min_level : null,
+            trigger: evolutionDetails ? evolutionDetails.trigger.name : null,
+            item: evolutionDetails ? evolutionDetails.item : null,
+            image: pokemonDetails.sprites.front_default,
+            types: pokemonDetails.types,
+          };
+
+          evolutionArray.push(evolutionData);
+
+          evolvesTo.forEach((evolution: any) => processChain(evolution, evolutionArray));
+        });
       });
-    }
+    };
 
-    evolvesTo.forEach((evolution: any) => {
-      this.parseEvolutionChain(evolution);
-    });
+    this.evolutions = [];
+    console.log(this.evolutions);
+    processChain(chain, this.evolutions);
+  }
+
+  hasMultipleLevelUpEvolutions(): boolean {
+    return this.evolutions.filter(e => e.trigger === 'level-up').length > 1;
   }
 
   // Função para adicionar a vírgula antes do último zero
