@@ -139,17 +139,35 @@ ion-card {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 10px;
 }
 
 .pagination button {
-  padding: 10px 15px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-left: 1px solid #222;
-  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.pagination button.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .pagination button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination button {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
 }
 
 .pagination button:first-child {
@@ -159,15 +177,12 @@ ion-card {
 }
 
 .pagination button:last-child {
-  background-color: #007bff;
+  background-color: #4caf50;
   color: #fff;
   border-bottom-right-radius: 5px;
   border-top-right-radius: 5px;
 }
 
-.pagination button.active {
-  background-color: #007bff;
-}
 
 .pagination button:disabled {
   opacity: 0.5;

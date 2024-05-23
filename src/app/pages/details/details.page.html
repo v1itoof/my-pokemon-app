@@ -80,28 +80,31 @@
         <ion-card-title>Evolutions</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <div class="container-evolution">
-          <div class="box-evolution" *ngFor="let evolution of evolutions">
-            <div class="img-evolution">
-              <img [src]="evolution.image" alt="{{ evolution.name }}">
-            </div>
-            <div class="details-evolution">
-              <div class="title-evolution">
-                <span class="name">{{ evolution.name | capitalize }}</span>
-              </div>
-              <div class="types-box">
-                <div class="pokemon-types">
-                  <span *ngFor="let type of types" class="type-box" [ngClass]="type">{{ type | capitalize }}</span>
+        <ion-grid class="container-evolution">
+          <ion-row>
+            <ion-col  *ngFor="let evolution of evolutions">
+              <div class="box-evolution">
+                <div class="img-evolution">
+                  <img [src]="evolution.image" alt="{{ evolution.name }}">
                 </div>
-
+                <div class="details-evolution">
+                  <div class="title-evolution">
+                    <span class="name">{{ evolution.name | capitalize }}</span>
+                  </div>
+                  <div class="types-box">
+                    <div class="pokemon-types">
+                      <span *ngFor="let type of types" class="type-box" [ngClass]="type">{{ type | capitalize }}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-card-content>
     </ion-card>
 
-    <ion-card>
+    <ion-card class="card-moves">
       <ion-card-header>
         <ion-card-title>Moves Learned by Level up</ion-card-title>
       </ion-card-header>

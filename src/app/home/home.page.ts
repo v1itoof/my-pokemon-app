@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,7 @@ export class HomePage implements OnInit {
   private totalPokemonCount: number = 0;
   public totalPages: number = 0;
   public currentPage: number = 1;
+  pagesToShow: number = 10;
 
   constructor(private router: Router, private pokeapiService: PokeapiService) {}
 
@@ -33,6 +34,21 @@ export class HomePage implements OnInit {
     this.pokeapiService.getPokemonList(this.offset, this.limit).subscribe((data: any[]) => {
       this.pokemons = data;
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.updatePagesToShow(event.target.innerWidth);
+  }
+
+  updatePagesToShow(width: number) {
+    if (width < 768) {
+      this.pagesToShow = 5;
+    } else if (width < 1200) {
+      this.pagesToShow = 7;
+    } else {
+      this.pagesToShow = 10;
+    }
   }
 
   goToNextPage() {
@@ -58,21 +74,20 @@ export class HomePage implements OnInit {
   }
 
   getTotalPages(): number[] {
-    let pagesToShow = 10; // Número de páginas a serem exibidas
     let startPage = 1;
 
-    if (this.totalPages > pagesToShow) {
-      if (this.currentPage > this.totalPages - 6) {
-        startPage = this.totalPages - 9; // Começa a partir das últimas 10 páginas
+    if (this.totalPages > this.pagesToShow) {
+      if (this.currentPage > this.totalPages - Math.floor(this.pagesToShow / 2)) {
+        startPage = this.totalPages - this.pagesToShow + 1;
       } else {
-        startPage = Math.max(1, this.currentPage - 2);
+        startPage = Math.max(1, this.currentPage - Math.floor(this.pagesToShow / 2));
       }
     }
 
-    let endPage = Math.min(this.totalPages, startPage + pagesToShow - 1);
+    let endPage = Math.min(this.totalPages, startPage + this.pagesToShow - 1);
 
-    if (endPage - startPage < pagesToShow - 1) {
-      startPage = Math.max(1, endPage - pagesToShow + 1);
+    if (endPage - startPage < this.pagesToShow - 1) {
+      startPage = Math.max(1, endPage - this.pagesToShow + 1);
     }
 
     let pages: number[] = [];
@@ -81,11 +96,11 @@ export class HomePage implements OnInit {
     }
 
     if (startPage > 1) {
-      pages.unshift(0); // Adiciona botão para ir para o início
+      pages.unshift(0); // Primeira página
     }
 
     if (endPage < this.totalPages) {
-      pages.push(this.totalPages + 1); // Adiciona botão para ir para as últimas 10 páginas
+      pages.push(this.totalPages + 1); // Última página
     }
 
     return pages;

@@ -24,14 +24,32 @@
     </ion-row>
   </ion-grid>
 
-  <!-- Paginação -->
   <div class="pagination">
     <button ion-button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Anterior</button>
-    <button ion-button *ngFor="let page of getTotalPages()" (click)="goToPage(page)" [class.active]="currentPage === page">
-      {{ page }}
-    </button>
+    <ng-container *ngFor="let page of getTotalPages()">
+      <button
+        ion-button
+        *ngIf="page > 0 && page <= totalPages"
+        (click)="goToPage(page)"
+        [class.active]="currentPage === page">
+        {{ page }}
+      </button>
+      <button
+        ion-button
+        *ngIf="page === 0"
+        (click)="goToPage(1)">
+        1...
+      </button>
+      <button
+        ion-button
+        *ngIf="page === totalPages + 1"
+        (click)="goToPage(totalPages)">
+        ...{{ totalPages }}
+      </button>
+    </ng-container>
     <button ion-button (click)="goToNextPage()" [disabled]="currentPage === totalPages">Próxima</button>
   </div>
+
 </ion-content>
 
 
