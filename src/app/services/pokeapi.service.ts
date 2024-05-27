@@ -65,4 +65,10 @@ export class PokeapiService {
     return this.http.get<any>(`${this.baseUrl}/evolution-chain/${id}`);
   }
 
+  getAllPokemons(): Observable<any[]> {
+    return this.http.get(`${this.baseUrl}/pokemon?limit=1000`).pipe(
+      map((response: any) => response.results)
+    );
+  }
+
 }

@@ -1,8 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Pokédex
-    </ion-title>
+    <ion-title>Pokémon</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/favorites">
+        <ion-icon slot="icon-only" name="star"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,8 +13,15 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="6" size-md="4" size-lg="3" *ngFor="let pokemon of pokemons">
-        <ion-card (click)="goToDetails(pokemon.id)">
-          <img [src]="pokemon.image" alt="{{pokemon.name}}" class="pokemon-image">
+        <ion-card>
+          <div class="card-header">
+            <img [src]="pokemon.image" alt="{{pokemon.name}}" class="pokemon-image" (click)="goToDetails(pokemon.id)">
+            <ion-icon
+              name="star"
+              [class.favorited]="isFavorited(pokemon.id)"
+              (click)="toggleFavorite(pokemon.id); $event.stopPropagation()"
+            ></ion-icon>
+          </div>
           <ion-card-content>
             <p class="pokemon-id">{{ formatPokemonId(pokemon.id) }}</p>
             <h2 class="pokemon-name">{{ pokemon.name | capitalize }}</h2>
@@ -23,6 +33,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
 
   <div class="pagination">
     <button ion-button (click)="goToPreviousPage()" [disabled]="currentPage === 1">Anterior</button>

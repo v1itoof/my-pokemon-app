@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
     });
   }
 
+
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updatePagesToShow(event.target.innerWidth);
@@ -111,15 +112,27 @@ export class HomePage implements OnInit {
     this.router.navigate(['/details', pokemonId]);
   }
 
-  formatPokemonId(id: number): string {
-    if (id < 10) {
-      return `000${id}`;
-    } else if (id < 100) {
-      return `00${id}`;
-    } else if (id < 1000) {
-      return `0${id}`;
+  toggleFavorite(pokemonId: number) {
+    let favorites = this.getFavorites();
+    if (favorites.includes(pokemonId)) {
+      favorites = favorites.filter(id => id !== pokemonId);
     } else {
-      return `${id}`;
+      favorites.push(pokemonId);
     }
+    sessionStorage.setItem('favorites', JSON.stringify(favorites));
+  }
+
+  isFavorited(pokemonId: number): boolean {
+    const favorites = this.getFavorites();
+    return favorites.includes(pokemonId);
+  }
+
+  getFavorites(): number[] {
+    const favorites = sessionStorage.getItem('favorites');
+    return favorites ? JSON.parse(favorites) : [];
+  }
+
+  formatPokemonId(id: number): string {
+    return `Nº ${id.toString().padStart(3, '0')}`;
   }
 }
