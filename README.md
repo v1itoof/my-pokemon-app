@@ -25,6 +25,3 @@ Explore as diferentes funcionalidades do aplicativo, navegue pela lista de Poké
 
 ![Imagem do Layout](src/images/layout.png)
 
-## Video
-
-![Video](src/images/video.mp4)
