@@ -21,4 +21,10 @@ O My Pokémon App é uma aplicação desenvolvida em Ionic, Angular e TypeScript
 
 Explore as diferentes funcionalidades do aplicativo, navegue pela lista de Pokémon, visualize os detalhes de cada um e favorite os seus favoritos!
 
-![Imagem de Exemplo](src/images/download.jpeg)
+## Layout
+
+![Imagem do Layout](src/images/layout.png)
+
+## Video
+
+![Video](src/images/video.mp4)
